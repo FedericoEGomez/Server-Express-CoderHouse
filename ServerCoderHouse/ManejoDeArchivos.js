@@ -17,7 +17,7 @@ class Contenedor {
             id:this.id,
             product: objeto
         })
-        await fs.promises.writeFile(`../src/resultado/${this.archivo}`,JSON.stringify(this.data, null, 2));
+        await fs.promises.writeFile(`./ServerCoderHouse/product/${this.archivo}`,JSON.stringify(this.data, null, 2));
         return this.id;
     }
 
@@ -30,7 +30,7 @@ class Contenedor {
     //metodo para devolver todo en el archivo 
     async getAll() {
         try {
-            const data = await fs.promises.readFile(`./ServerCoderHouse/product/product.txt`, 'utf-8')
+            const data = await fs.promises.readFile(`./ServerCoderHouse/product/${this.archivo}`, 'utf-8')
             if (data) {
                 this.data = JSON.parse(data);
                 this.data.map((producto) => {
@@ -44,18 +44,25 @@ class Contenedor {
             return 
         }
     }
+    
+    //metodo random 
+    async getRandomId(){
+        await this.getAll();
+        let numeroRandom = Math.round(Math.random()*10);
+        return this.data.find((producto) => producto.id === numeroRandom)
+    }
 
     //metodo para borrar por id
     async deleteById(id) {
         await this.getAll();
-        await fs.promises.unlink(`../src/resultado/${this.archivo}`);
+        await fs.promises.unlink(`./ServerCoderHouse/product/${this.archivo}`);
         const data = this.data.filter((producto) => producto.id !== id);
-        await fs.promises.writeFile(`../src/resultado/${this.archivo}`,JSON.stringify(data, null, 2));
+        await fs.promises.writeFile(`./ServerCoderHouse/product/${this.archivo}`,JSON.stringify(data, null, 2));
     }
 
     // metodo para borrar todo 
     async deleteAll() {
-        await fs.promises.unlink(`../src/resultado/${this.archivo}`);
+        await fs.promises.unlink(`./ServerCoderHouse/product/${this.archivo}`);
         this.id = 0;
         this.data =[];
     }

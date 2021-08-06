@@ -4,9 +4,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', async function (req, res, next) {
-    const producto = new Contenedor();
+    const producto = new Contenedor('product.txt');
     let resultado = await producto.getAll();
-    res.send(`${resultado}`);
+    res.send(resultado);
 });
 
 

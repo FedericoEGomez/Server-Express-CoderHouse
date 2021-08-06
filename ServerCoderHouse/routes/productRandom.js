@@ -1,13 +1,13 @@
 var express = require('express');
+const Contenedor = require('../ManejoDeArchivos')
 var router = express.Router();
-const fs = require('fs');
-/* GET users listing. */
 
-router.get('/',  (req,res) => {   
-    fs.readFile("./ServerCoderHouse/product/product.txt",'utf-8',(error,datos) =>{
-        if(error) throw error;
-        res.send(datos)
-    })       
-   })
+/* GET users listing. */
+router.get('/', async function (req, res, next) {
+    const producto = new Contenedor('product.txt');
+    let resultado = await producto.getRandomId();
+    res.send(resultado);
+});
+
 
 module.exports = router;

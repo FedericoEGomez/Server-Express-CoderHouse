@@ -48,7 +48,7 @@ class Contenedor {
     //metodo random 
     async getRandomId(){
         await this.getAll();
-        let numeroRandom = Math.round(Math.random()*10);
+        let numeroRandom = Math.round(Math.random() * (3 - 1) + 1);
         return this.data.find((producto) => producto.id === numeroRandom)
     }
 
